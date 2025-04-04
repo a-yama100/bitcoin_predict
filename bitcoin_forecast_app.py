@@ -7,10 +7,10 @@ from datetime import datetime, timedelta
 import io
 
 # ページ設定
-st.set_page_config(page_title="ビットコイン価格予測", layout="wide")
+st.set_page_config(page_title="Bitcoin Price Forecast", layout="wide")
 
 # タイトル
-st.title("ビットコイン価格予測")
+st.title("Bitcoin Price Forecast")
 
 # データの読み込み
 @st.cache_data
@@ -45,22 +45,22 @@ def load_data():
 df = load_data()
 
 # 予測期間（週数）
-weeks_to_forecast = st.sidebar.slider("予測期間（週）", min_value=4, max_value=52, value=12, step=4)
+weeks_to_forecast = st.sidebar.slider("Forecast period (weeks)", min_value=4, max_value=52, value=12, step=4)
 
 # 予測モデルの選択
 selected_model = st.sidebar.selectbox(
-    "予測モデルを選択",
-    ["ARIMA", "シンプル予測", "移動平均"]
+    "Select Prediction Model",
+    ["ARIMA", "Simple Prediction", "Moving Average"]
 )
 
 # データの表示
-st.subheader("ビットコイン価格データ")
+st.subheader("Bitcoin Price Data")
 st.dataframe(df.head())
 
 # ARIMA モデル
 def run_arima(df, weeks_to_forecast):
-    st.subheader("ARIMA予測")
-    st.write("自己回帰和分移動平均モデルによる予測です。時系列データの統計的特性を活用した伝統的な予測手法です。")
+    st.subheader("ARIMA Forecast")
+    st.write("Forecasting with an autoregressive summed moving average model. This is a traditional forecasting method that takes advantage of the statistical properties of time series data.")
     
     try:
         model = ARIMA(df['Close'], order=(2,1,0))
@@ -85,15 +85,15 @@ def run_arima(df, weeks_to_forecast):
         ax.grid(True)
         
         st.pyplot(fig)
-        st.subheader("予測価格")
+        st.subheader("Estimated Price")
         st.dataframe(forecast_df)
     except Exception as e:
         st.error(f"エラーが発生しました: {str(e)}")
 
 # シンプル予測
 def run_simple_forecast(df, weeks_to_forecast):
-    st.subheader("シンプル予測")
-    st.write("直近のトレンドに基づいた単純な線形予測です。")
+    st.subheader("Simple Prediction")
+    st.write("It is a simple linear forecast based on the most recent trend.")
     
     try:
         # 直近のトレンドに基づいた単純な線形予測
@@ -134,8 +134,8 @@ def run_simple_forecast(df, weeks_to_forecast):
 
 # 移動平均予測
 def run_moving_average(df, weeks_to_forecast):
-    st.subheader("移動平均予測")
-    st.write("移動平均を使った予測モデルです。変動を滑らかにした傾向を見ることができます。")
+    st.subheader("Moving Average Forecast")
+    st.write("This is a forecasting model using moving averages. It allows us to see trends with smoothed fluctuations.")
     
     try:
         # 移動平均を計算
@@ -174,7 +174,7 @@ def run_moving_average(df, weeks_to_forecast):
         ax.grid(True)
         
         st.pyplot(fig)
-        st.subheader("予測価格")
+        st.subheader("Estimated Price")
         st.dataframe(forecast_df)
     except Exception as e:
         st.error(f"エラーが発生しました: {str(e)}")
@@ -182,11 +182,11 @@ def run_moving_average(df, weeks_to_forecast):
 # 選択したモデルを実行
 if selected_model == "ARIMA":
     run_arima(df, weeks_to_forecast)
-elif selected_model == "シンプル予測":
+elif selected_model == "Simple Prediction":
     run_simple_forecast(df, weeks_to_forecast)
 else:
     run_moving_average(df, weeks_to_forecast)
 
 # フッター
 st.markdown("---")
-st.caption("注意: この予測は過去データに基づいており、将来の価格を保証するものではありません。投資判断には専門家に相談してください。")
+st.caption("Note: This forecast is based on historical data and is not a guarantee of future prices. Please consult a professional to make an investment decision.")
