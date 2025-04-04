@@ -19,8 +19,8 @@ def load_data():
         # CSVファイルの読み込みを試行
         df = pd.read_csv("bitcoin_weekly_data_2020_2025.csv")
     except Exception as e:
-        st.warning(f"CSVファイルの読み込みに失敗しました: {str(e)}")
-        st.info("サンプルデータを使用します")
+        st.warning(f"Failed to read CSV file: {str(e)}")
+        st.info("Use sample data")
         
         # サンプルデータ
         data_str = """Date,Open,High,Low,Close,Volume,Market_Cap
@@ -88,7 +88,7 @@ def run_arima(df, weeks_to_forecast):
         st.subheader("Estimated Price")
         st.dataframe(forecast_df)
     except Exception as e:
-        st.error(f"エラーが発生しました: {str(e)}")
+        st.error(f"An error has occurred: {str(e)}")
 
 # シンプル予測
 def run_simple_forecast(df, weeks_to_forecast):
@@ -127,10 +127,10 @@ def run_simple_forecast(df, weeks_to_forecast):
         ax.grid(True)
         
         st.pyplot(fig)
-        st.subheader("予測価格")
+        st.subheader("Estimated Price")
         st.dataframe(forecast_df)
     except Exception as e:
-        st.error(f"エラーが発生しました: {str(e)}")
+        st.error(f"An error has occurred: {str(e)}")
 
 # 移動平均予測
 def run_moving_average(df, weeks_to_forecast):
@@ -177,7 +177,7 @@ def run_moving_average(df, weeks_to_forecast):
         st.subheader("Estimated Price")
         st.dataframe(forecast_df)
     except Exception as e:
-        st.error(f"エラーが発生しました: {str(e)}")
+        st.error(f"An error has occurred: {str(e)}")
 
 # 選択したモデルを実行
 if selected_model == "ARIMA":
