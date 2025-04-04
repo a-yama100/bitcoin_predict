@@ -9,10 +9,6 @@ This repository contains a Streamlit application that predicts future Bitcoin pr
 - **Data Visualization**: Display historical price data and forecast results in graphs
 - **Forecast Data Export**: View prediction results in tabular format
 
-## Demo
-
-![Bitcoin Price Forecast App Demo](demo_screenshot.png)
-
 ## Usage
 
 ### Running Locally
